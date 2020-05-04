@@ -8,15 +8,8 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
     <artifactId>repository-module</artifactId>
-<<<<<<< HEAD:developyourskills/repository-module/pom.xml
     <version>0.0.1-SNAPSHOT</version>
-=======
-    <version>${repository-module.version}</version>
->>>>>>> origin/develop:repository-module/pom.xml
     <name>repository-module</name>
-    <properties>
-        <repository-module.version>0.0.1-SNAPSHOT</repository-module.version>
-    </properties>
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>

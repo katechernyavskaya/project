@@ -8,10 +8,9 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <artifactId>spring-boot-module</artifactId>
-    <version>${web-module.version}</version>
+    <version>0.0.1-SNAPSHOT</version>
     <properties>
         <service-module.version>0.0.1-SNAPSHOT</service-module.version>
-        <web-module.version>0.0.1-SNAPSHOT</web-module.version>
     </properties>
     <dependencies>
         <dependency>
@@ -70,10 +69,6 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
-<<<<<<< HEAD:developyourskills/spring-boot-module/pom.xml
-=======
-        <!--For tests:-->
->>>>>>> origin/develop:spring-boot-module/pom.xml
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
@@ -90,10 +85,6 @@
             <artifactId>h2</artifactId>
             <scope>runtime</scope>
         </dependency>
-<<<<<<< HEAD:developyourskills/spring-boot-module/pom.xml
-=======
-        <!--For security tests-->
->>>>>>> origin/develop:spring-boot-module/pom.xml
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-test</artifactId>
