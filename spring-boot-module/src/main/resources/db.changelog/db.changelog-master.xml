@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+    <changeSet id="1" author="developyourskills@gmail.com">
+        <createTable tableName="user">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="email" type="varchar(50)">
+                <constraints unique="true"/>
+            </column>
+            <column name="surname" type="varchar(40)"/>
+            <column name="name" type="varchar(20)"/>
+            <column name="patronymic" type="varchar(40)"/>
+            <column name="password" type="varchar(100)"/>
+            <column name="role" type="varchar(40)"/>
+            <column name="is_could_not_be_deleted" type="boolean" defaultValueBoolean="false"/>
+            <column name="address" type="varchar(100)"/>
+            <column name="phone" type="varchar(40)"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="2" author="developyourskills@gmail.com">
+        <insert tableName="user">
+            <column name="email" value="admin@user.com"/>
+            <column name="surname" value="AdminSurname"/>
+            <column name="name" value="AdminName"/>
+            <column name="patronymic" value="AdminPatronymic"/>
+            <column name="password" value="$2y$12$8PI0mf9NXsDjxnbYS7xGIuuPLwLlidD5tM241nZPFdhrMKVgt.LNe"/>
+            <column name="role" value="ADMINISTRATOR"/>
+            <column name="is_could_not_be_deleted" valueBoolean="true"/>
+        </insert>
+    </changeSet>
+    <changeSet id="3" author="developyourskills@gmail.com">
+        <createTable tableName="review">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="reviewer_id" type="BIGINT"/>
+            <column name="text" type="varchar(250)"/>
+            <column name="creation_date" type="DATE"/>
+            <column name="is_displayed" type="boolean" defaultValueBoolean="false"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="4" author="developyourskills@gmail.com">
+        <addForeignKeyConstraint baseColumnNames="reviewer_id"
+                                 baseTableName="review"
+                                 constraintName="fk_review_to_user"
+                                 onDelete="NO ACTION"
+                                 onUpdate="NO ACTION"
+                                 referencedColumnNames="id"
+                                 referencedTableName="user"/>
+    </changeSet>
+    <changeSet id="5" author="developyourskills@gmail.com">
+        <createTable tableName="article">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="date" type="DATE"/>
+            <column name="title" type="varchar(100)"/>
+            <column name="full_text" type="varchar(1000)"/>
+            <column name="author_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="6" author="developyourskills@gmail.com">
+        <addForeignKeyConstraint baseColumnNames="author_id"
+                                 baseTableName="article"
+                                 constraintName="fk_article_to_user"
+                                 onDelete="NO ACTION"
+                                 onUpdate="NO ACTION"
+                                 referencedColumnNames="id"
+                                 referencedTableName="user"/>
+    </changeSet>
+    <changeSet id="7" author="developyourskills@gmail.com">
+        <createTable tableName="comment">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="date" type="DATE"/>
+            <column name="text" type="varchar(200)"/>
+            <column name="article_id" type="BIGINT"/>
+            <column name="commentator_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="8" author="developyourskills@gmail.com">
+        <addForeignKeyConstraint baseColumnNames="article_id"
+                                 baseTableName="comment"
+                                 constraintName="fk_comment_to_article"
+                                 onDelete="NO ACTION"
+                                 onUpdate="NO ACTION"
+                                 referencedColumnNames="id"
+                                 referencedTableName="article"/>
+        <addForeignKeyConstraint baseColumnNames="commentator_id"
+                                 baseTableName="comment"
+                                 constraintName="fk_comment_to_user"
+                                 onDelete="NO ACTION"
+                                 onUpdate="NO ACTION"
+                                 referencedColumnNames="id"
+                                 referencedTableName="user"/>
+    </changeSet>
+    <changeSet id="9" author="developyourskills@gmail.com">
+        <insert tableName="user">
+            <column name="email" value="customer@user.com"/>
+            <column name="surname" value="CustomerSurname"/>
+            <column name="name" value="CustomerName"/>
+            <column name="patronymic" value="CustomerPatronymic"/>
+            <column name="password" value="$2y$12$TteVBb2YzKIiZSCBEY6wJeNa4K6K.ozXHVvnH0o2V1JUVEFd2CC4u"/>
+            <column name="role" value="CUSTOMER_USER"/>
+            <column name="is_could_not_be_deleted" valueBoolean="false"/>
+        </insert>
+    </changeSet>
+    <changeSet id="10" author="developyourskills@gmail.com">
+        <createTable tableName="item">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="name" type="varchar(100)"/>
+            <column name="code" type="varchar(40)">
+                <constraints unique="true"/>
+            </column>
+            <column name="price" type="DECIMAL"/>
+            <column name="summary" type="varchar(200)"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="11" author="developyourskills@gmail.com">
+        <addColumn tableName="user">
+            <column name="is_disabled" type="boolean" defaultValueBoolean="false"/>
+        </addColumn>
+    </changeSet>
+    <changeSet id="12" author="developyourskills@gmail.com">
+        <createTable tableName="invoice">
+            <column name="id" type="BIGINT" autoIncrement="true">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="status" type="varchar(40)"/>
+            <column name="quantity" type="INT"/>
+            <column name="total_price" type="DECIMAL"/>
+            <column name="date" type="DATE"/>
+            <column name="item_id" type="BIGINT"/>
+            <column name="client_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="13" author="developyourskills@gmail.com">
+        <addForeignKeyConstraint baseColumnNames="item_id"
+                                 baseTableName="invoice"
+                                 constraintName="fk_invoice_to_item"
+                                 onDelete="NO ACTION"
+                                 onUpdate="NO ACTION"
+                                 referencedColumnNames="id"
+                                 referencedTableName="item"/>
+    </changeSet>
+    <changeSet id="14" author="developyourskills@gmail.com">
+        <addForeignKeyConstraint baseColumnNames="client_id"
+                                 baseTableName="invoice"
+                                 constraintName="fk_invoice_to_user"
+                                 onDelete="NO ACTION"
+                                 onUpdate="NO ACTION"
+                                 referencedColumnNames="id"
+                                 referencedTableName="user"/>
+    </changeSet>
+    <changeSet id="15" author="developyourskills@gmail.com">
+        <insert tableName="user">
+            <column name="email" value="secure@user.com"/>
+            <column name="surname" value="SecureAPISurname"/>
+            <column name="name" value="SecureAPIName"/>
+            <column name="patronymic" value="SecureAPIPatronymic"/>
+            <column name="password" value="$2y$12$.3WI9DlRT3MfoEgUMUsy0.AKIUASh.393qhytAzs57vnIickb1K5."/>
+            <column name="role" value="SECURE_API_USER"/>
+            <column name="is_could_not_be_deleted" valueBoolean="false"/>
+        </insert>
+    </changeSet>
+    <changeSet id="16" author="developyourskills@gmail.com">
+        <insert tableName="user">
+            <column name="email" value="sale@user.com"/>
+            <column name="surname" value="SaleSurname"/>
+            <column name="name" value="SaleName"/>
+            <column name="patronymic" value="SalePatronymic"/>
+            <column name="password" value="$2y$12$TOHuoh2gSs0FUm00tGpJF.sw1ZFvwXggyNfkI6lbPT633YtDl5xUq"/>
+            <column name="role" value="SALE_USER"/>
+            <column name="is_could_not_be_deleted" valueBoolean="false"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>

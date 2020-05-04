@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Order</title>
+</head>
+<body>
+Order
+<div class="container">
+    <table>
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Status</th>
+            <th scope="col">Item name</th>
+            <th scope="col">Client #</th>
+            <th scope="col">Phone #</th>
+            <th scope="col">Quantity</th>
+            <th scope="col">Total price</th>
+            <th scope="col">Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td th:text="${order.id}">1</td>
+            <td th:text="${order.status}">2</td>
+            <td th:text="${order.item.name}">3
+            <td th:text="${order.user.id}">4
+            <td th:text="${order.user.phone}">5
+            <td th:text="${order.quantity}">6
+            <td th:text="${order.totalPrice}">7
+            <td>
+                <div sec:authorize="hasRole('SALE_USER')">
+                    <a class="btn btn-info" href="#" role="button"
+                       th:href="@{/orders/{id}/status(id=${order.id})}">Change status</a>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<a th:href="@{/welcome}" href="/"> Menu</a>
+</body>
+</html>

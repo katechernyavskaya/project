@@ -1,0 +1,22 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Welcome!</title>
+</head>
+<body>
+<fieldset>
+    <h1>Welcome!
+        Please sign in</h1>
+    <div th:if="${param.error}">
+        <div class="alert alert-danger">
+            Invalid credentials or user not exist. Please, try again!
+        </div>
+    </div>
+    <form action="/login" method="post">
+        Email <input name="username" required="true" type="email" autofocus="autofocus">
+        Password <input name="password" required="true" type="password">
+        <input type="submit">
+    </form>
+</fieldset>
+</body>
+</html>

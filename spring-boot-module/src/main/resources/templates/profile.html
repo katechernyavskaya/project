@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Profile</title>
+</head>
+<body>
+<div class="container">
+    You could edit your profile details below
+    <div class="row">
+        <div class="col">
+        </div>
+        <div class="col">
+            <form method="post" th:action="@{/users/profile}" th:object="${user}">
+                <div class="form-group">
+                    <span th:errors="*{surname}" th:if="${#fields.hasErrors('surname')}">Surname Error</span><br>
+                    <label for="surname">Surname*</label>
+                    <input class="form-control" id="surname" th:field="*{surname}" type="text" size="40"
+                           pattern="^[a-zA-Z]+$" th:required="required">
+
+                    <span th:errors="*{name}" th:if="${#fields.hasErrors('name')}">Name Error</span><br>
+                    <label for="name">Name*</label>
+                    <input class="form-control" id="name" th:field="*{name}" type="text" size="20"
+                           pattern="^[a-zA-Z]+$" th:required="required">
+
+                    <span th:errors="*{address}" th:if="${#fields.hasErrors('address')}">Address Error</span><br>
+                    <label for="address">Address</label>
+                    <input class="form-control" id="address" th:field="*{address}" type="text" size="100">
+
+                    <span th:errors="*{phone}" th:if="${#fields.hasErrors('phone')}">Phone Error</span><br>
+                    <label for="phone">Phone</label>
+                    <input class="form-control" id="phone" th:field="*{phone}" type="text" size="40">
+
+                </div>
+                <button class="btn btn-primary" type="submit">Submit</button>
+            </form>
+        </div>
+        <div class="col">
+        </div>
+    </div>
+</div>
+
+<a th:href="@{/users/updatePassword}" href="/"> Change password</a>
+
+<a th:href="@{/welcome}" href="/"> Menu</a>
+
+</body>
+</html>

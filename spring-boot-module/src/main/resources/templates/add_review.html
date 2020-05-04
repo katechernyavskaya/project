@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add review</title>
+</head>
+<body>
+Add review
+<div class="container">
+    <div class="row">
+        <div class="col">
+        </div>
+        <div class="col">
+            <form method="post" th:action="@{/reviews}" th:object="${review}">
+                <div class="form-group">
+                    <span th:errors="*{text}" th:if="${#fields.hasErrors('text')}">Review Error</span><br>
+                    <label for="text"></label>
+                    <textarea class="form-control" id="text" th:field="*{text}" th:maxlength="250"
+                              th:required="required"
+                              placeholder="Please write your review here"></textarea>
+                </div>
+                <button class="btn btn-primary" type="submit">Submit</button>
+            </form>
+        </div>
+        <div class="col">
+        </div>
+    </div>
+</div>
+</body>
+<a th:href="@{/welcome}" href="/"> Menu</a>
+</html>

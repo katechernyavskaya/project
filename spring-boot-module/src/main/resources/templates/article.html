@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Article</title>
+</head>
+<body>
+<div class="container">
+    <table>
+        <thead>
+        <tr>
+            <th scope="col">Date</th>
+            <th scope="col">Title</th>
+            <th scope="col">Author</th>
+            <th scope="col"></th>
+            <th scope="col">Full text</th>
+            <th scope="col" hidden>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td th:text="${#dates.format(article.date, 'dd-MM-yyyy')}">1</td>
+            <td th:text="${article.title}">2</td>
+            <td th:text="${article.author.name}">3</td>
+            <td th:text="${article.author.surname}">4</td>
+            </td>
+            <td th:text="${article.fullText}">4</td>
+
+            <td>
+                <div sec:authorize="hasRole('SALE_USER')">
+                    <a class="btn btn-info" href="#" role="button"
+                       th:href="@{/articles/{id}/edit(id=${article.id})}">Edit</a>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    Comments
+    <table>
+        <thead>
+        <tr>
+            <th scope="col">Date</th>
+            <th scope="col">Author</th>
+            <th scope="col">Full text</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tbody th:each="comment: ${comments}">
+        <tr>
+            <td th:text="${comment.date}">1</td>
+            <td th:text="${comment.commentator.surname}">2</td>
+            <td th:text="${comment.commentator.name}">3</td>
+            <td th:text="${comment.text}">4</td>
+
+            <td>
+                <div sec:authorize="hasRole('SALE_USER')">
+                    <a class="btn btn-info" href="#" role="button"
+                       th:href="@{/comments/{id}/delete(id=${comment.id})}">Delete</a>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<a th:href="@{/welcome}" href="/"> Menu</a>
+</body>
+</html>

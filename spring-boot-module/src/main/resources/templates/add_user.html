@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add user</title>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col">
+        </div>
+        <div class="col">
+            <form method="post" th:action="@{/users}" th:object="${user}">
+                <div class="form-group">
+                    <span th:errors="*{surname}" th:if="${#fields.hasErrors('surname')}">Surname Error</span><br>
+                    <label for="surname">Surname*</label>
+                    <input class="form-control" id="surname" th:field="*{surname}" type="text" size="40"
+                           th:required="required"
+                           pattern="^[a-zA-Z]+$">
+
+                    <span th:errors="*{name}" th:if="${#fields.hasErrors('name')}">Name Error</span><br>
+                    <label for="name">Name*</label>
+                    <input class="form-control" id="name" th:field="*{name}" type="text" size="20"
+                           th:required="required"
+                           pattern="^[a-zA-Z]+$">
+
+                    <span th:errors="*{patronymic}"
+                          th:if="${#fields.hasErrors('patronymic')}">Patronymic Error</span><br>
+                    <label for="patronymic">Patronymic</label>
+                    <input class="form-control" id="patronymic" th:field="*{patronymic}" type="text" size="40"
+                           pattern="^[a-zA-Z]+$">
+
+                    <span th:errors="*{email}" th:if="${#fields.hasErrors('email')}">Email Error</span><br>
+                    <label for="email">Email*</label>
+                    <input class="form-control" id="email" th:field="*{email}" type="email" size="50"
+                           th:required="required">
+
+                    <table>
+                        <tbody th:each="role: ${roles}">
+                        <tr>
+                            <input class="form-control" type="radio" id="role" th:required="required"
+                                   th:field="${user.role}"
+                                   th:value="${role}">
+                            <label th:text="${role}" for="role">Role</label>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <button class="btn btn-primary" type="submit">Submit</button>
+            </form>
+        </div>
+        <div class="col">
+        </div>
+    </div>
+</div>
+<a th:href="@{/welcome}" href="/"> Menu</a>
+</body>
+</html>

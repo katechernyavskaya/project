@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Welcome to app!</title>
+</head>
+<body>
+
+<a th:href="@{/users/add}" href="/">Add user </a>
+---
+<a th:href="@{/users}" href="/"> Users</a>
+---
+<a th:href="@{/reviews}" href="/"> Reviews</a>
+---
+<a th:href="@{/reviews/add}" href="/"> Add review</a>
+---
+<a th:href="@{/articles}" href="/"> Articles</a>
+---
+<a th:href="@{/articles/add}" href="/"> Add article</a>
+---
+<a th:href="@{/users/profile}" href="/"> User profile</a>
+---
+<a th:href="@{/users/updatePassword}" href="/"> Update password</a>
+---
+<a th:href="@{/orders}" href="/"> Orders</a>
+---
+<a th:href="@{/orders/myOrders}" href="/"> My orders</a>
+--
+<a th:href="@{/items/}" href="/"> Items</a>
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Item details</title>
+</head>
+<body>
+<table>
+    Item details:
+    <thead>
+    <tr>
+        <th scope="col">Name</th>
+        <th scope="col">Code</th>
+        <th scope="col">Price</th>
+        <th scope="col">Description</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td th:text="${item.name}">1</td>
+        <td th:text="${item.code}">2</td>
+        <td th:text="${item.price}">3</td>
+        <td th:text="${item.summary}">4</td>
+    </tr>
+    </tbody>
+</table>
+</body>
+
+<a th:href="@{/welcome}" href="/">
+    Menu </a>
+
+</html>

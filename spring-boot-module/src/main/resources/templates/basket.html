@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Order item</title>
+</head>
+<body>
+<div class="container">
+    <td th:text="${order.item.name}">1</td>
+    , price:
+    <td th:text="${order.item.price}"></td>
+    , code:
+    <td th:text="${order.item.code}"></td>
+    <form method="post" th:action="@{/orders}" th:object="${order}">
+        <div class="form-group">
+            <div>
+                <span th:errors="*{quantity}" th:if="${#fields.hasErrors('quantity')}">Quantity Error</span><br>
+                <label for="quantity">Quantity</label>
+                <input class="form-control" id="quantity" th:field="${order.quantity}" th:value="*{quantity}"
+                       type="number" min="1"
+                       th:required="required" th:default=1>
+                <!--Calculate price-->
+                <a class="btn btn-info" href="#" role="button"
+                   th:href="@{/orders/add/{itemId}/quantity/{quantityId}(itemId=${order.item.id},quantityId=*{quantity})}">Calculate
+                    total price</a>
+                <!--Total price:-->
+                <div hidden th:text="${order.item.price}*${order.quantity}">example=14.55</div>
+            </div>
+        </div>
+        <!--Hidden fields-->
+        <input hidden class="form-control" id="status" th:field="*{status}">
+        <input hidden class="form-control" id="date" th:field="*{date}">
+        <input hidden class="form-control" id="totalPrice" th:field="*{totalPrice}">
+        <input hidden class="form-control" id="itemId" th:field="*{itemId}">
+
+        <button class="btn btn-primary" type="submit">Order item</button>
+    </form>
+</div>
+<a th:href="@{/welcome}" href="/"> Menu</a>
+</body>
+</html>

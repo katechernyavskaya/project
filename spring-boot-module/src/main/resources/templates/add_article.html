@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add article</title>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col">
+        </div>
+        <div class="col">
+            <form method="post" th:action="@{/articles}" th:object="${article}">
+                <div class="form-group">
+
+                    <span th:errors="*{date}" th:if="${#fields.hasErrors('date')}">Date Error</span><br>
+                    <label for="date">Date*</label>
+                    <input class="form-control" id="date" th:field="*{date}" type="date" data-date-inline-picker="true"
+                           th:required="required">
+
+                    <span th:errors="*{title}" th:if="${#fields.hasErrors('title')}">Title Error</span><br>
+                    <label for="title">Title* (max=100)</label>
+                    <textarea class="form-control" id="title" th:field="*{title}" th:maxlength="100"
+                              th:size="100" th:required="required">
+                    </textarea>
+
+                    <span th:errors="*{fullText}"
+                          th:if="${#fields.hasErrors('fullText')}">Full text Error</span><br>
+                    <label for="fullText">Full text* (max=1000) </label>
+                    <textarea class="form-control" id="fullText" th:field="*{fullText}"
+                              th:maxlength="1000" th:size="1000" th:required="required"
+                              placeholder="Please enter details here">
+                    </textarea>
+                    <button class="btn btn-primary" type="submit">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<a th:href="@{/welcome}" href="/"> Menu</a>
+</body>
+</html>

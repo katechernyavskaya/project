@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Simple change of user role!</title>
+</head>
+<body>
+<div class="container">
+    <table>
+        User details:
+        <tbody>
+        <tr>
+            <td th:text="${user.email}">1</td>
+            <td th:text="${user.surname}">2</td>
+            <td th:text="${user.name}">3</td>
+            Current user role:
+            <td th:text="${user.role}">4</td>
+        </tr>
+        </tbody>
+    </table>
+    <form th:action="@{/users/{id}/role(id=${user.id})}"
+          th:object="${user}"
+          method="post">
+        <span th:if="${#fields.hasErrors ('role')}"
+              th:errors="*{role}">
+        </span><br>
+        Please select new role:
+        <div th:each="role: ${roles}">
+            <div class="form-check">
+                <input class="form-check-input" type="radio" th:field="${user.role}" th:value="${role}">
+                <label class="form-check-label" th:text="${role}"> role name
+                </label>
+            </div>
+        </div>
+        <br>
+        <button type="submit" class="btn btn-outline-success">Change role</button>
+    </form>
+</div>
+<a th:href="@{/welcome}" href="/"> Menu</a>
+</body>
+</html>

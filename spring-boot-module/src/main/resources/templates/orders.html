@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>All orders</title>
+</head>
+<body>
+<span th:if="${#lists.isEmpty(ordersWithPagination.userOrders)}">
+    No orders yet
+    </span>
+<span th:unless="${#lists.isEmpty(ordersWithPagination.userOrders)}">
+<table>
+    All  orders
+    <thead>
+    <tr>
+        <th scope="col">#</th>
+        <th scope="col">Status</th>
+        <th scope="col">Item name</th>
+        <th scope="col">Quantity</th>
+        <th scope="col">Total price</th>
+    </tr>
+    </thead>
+    <tbody th:each="order: ${ordersWithPagination.userOrders}">
+    <tr>
+        <td th:text="${order.id}">1</td>
+        <td th:text="${order.status}">2</td>
+        <td th:text="${order.item.name}">3</td>
+        <td th:text="${order.quantity}">4</td>
+        <td th:text="${order.totalPrice}">5</td>
+         <td>
+                <div sec:authorize="hasRole('SALE_USER')">
+                <a class="btn btn-info" href="#" role="button"
+                   th:href="@{/orders/{id}(id=${order.id})}">More</a>
+                </div>
+            </td>
+    </tr>
+    </tbody>
+</table>
+    <!-- PAGINATION -->
+<div>
+    <div>
+        <p>Pages:</p>
+    </div>
+    <ul th:object="${ordersWithPagination.pagination}">
+        <th:block th:unless="*{currentPage == 1}">
+            <li>
+                <a th:href="@{/orders(pagination.currentPage=*{currentPage - 1}, pagination.elementsPerPage=*{elementsPerPage})}">Back</a>
+            </li>
+        </th:block>
+
+        <li><a th:href="@{/orders(pagination.currentPage=*{currentPage}, pagination.elementsPerPage=*{elementsPerPage})}"
+               th:text="*{currentPage}">page</a></li>
+        <th:block th:unless="*{currentPage == amountPages}">
+            <li>
+                <a th:href="@{/orders(pagination.currentPage=*{currentPage + 1}, pagination.elementsPerPage=*{elementsPerPage})}">Next</a>
+            </li>
+        </th:block>
+    </ul>
+</div>
+     </span>
+<a th:href="@{/welcome}" href="/"> Menu</a>
+</body>
+</html>

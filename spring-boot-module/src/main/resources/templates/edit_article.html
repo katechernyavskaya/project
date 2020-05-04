@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit article</title>
+</head>
+<body>
+<div class="container">
+    You could edit your article below
+    <div class="row">
+        <div class="col">
+        </div>
+        <div class="col">
+            <form method="post" th:action="@{/articles/{id}/edit(id=${article.id})}" th:object="${article}">
+                <div class="form-group">
+
+                    <span th:errors="*{title}" th:if="${#fields.hasErrors('title')}">Title Error</span><br>
+                    <label for="title">Title* (max=100)</label>
+                    <textarea class="form-control" id="title" th:field="*{title}" th:maxlength="100"
+                              th:size="100" th:required="required">
+                    </textarea>
+
+                    <span th:errors="*{fullText}"
+                          th:if="${#fields.hasErrors('fullText')}">Full text Error</span><br>
+                    <label for="fullText">Full text* (max=1000) </label>
+                    <textarea class="form-control" id="fullText" th:field="*{fullText}"
+                              th:maxlength="1000" th:size="1000" th:required="required">
+                    </textarea>
+                    Please note: date will updated automatically to current one
+                </div>
+                <button class="btn btn-primary" type="submit">Submit</button>
+            </form>
+        </div>
+        <div class="col">
+        </div>
+    </div>
+</div>
+
+<a th:href="@{/welcome}" href="/"> Menu</a>
+
+</body>
+</html>

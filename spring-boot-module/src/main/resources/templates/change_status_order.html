@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Change order status</title>
+</head>
+<body>
+<div class="container">
+    Current order status:
+    <td th:text="${order.status}">1</td>
+    <form th:action="@{/orders/{id}/status(id=${order.id})}"
+          th:object="${order}"
+          method="post">
+        <span th:if="${#fields.hasErrors ('status')}"
+              th:errors="*{status}">
+        </span><br>
+        Please select new status:
+        <div th:each="status: ${statuses}">
+            <div class="form-check">
+                <input class="form-check-input" type="radio" th:field="${order.status}" th:value="${status}">
+                <label class="form-check-label" th:text="${status}"> status
+                </label>
+            </div>
+        </div>
+        <input hidden class="form-control" id="status" th:field="${order.id}">
+        <input hidden class="form-control" id="totalPrice" th:field="${order.totalPrice}">
+        <input hidden class="form-control" id="date" th:field="${order.date}">
+        <br>
+        <button type="submit" class="btn btn-outline-success">Change status</button>
+    </form>
+</div>
+<a th:href="@{/welcome}" href="/"> Menu</a>
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Reviews</title>
+</head>
+<body>
+<span th:if="${#lists.isEmpty(reviewsWithPagination.reviews)}">
+    No reviews yet
+    </span>
+<span th:unless="${#lists.isEmpty(reviewsWithPagination.reviews)}">
+<div class="container">
+    <table>
+        All reviews
+        <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Surname</th>
+            <th scope="col">Name</th>
+            <th scope="col">Patronymic</th>
+            <th scope="col">Review</th>
+            <th scope="col">Date of submitting</th>
+            <th scope="col">Display?</th>
+            <th scope="col">Actions</th>
+        </tr>
+        </thead>
+        <tbody th:each="review: ${reviewsWithPagination.reviews}">
+        <tr>
+            <td th:text="${review.id}">1</td>
+            <td th:text="${review.reviewer.surname}">2</td>
+            <td th:text="${review.reviewer.name}">3</td>
+            <td th:text="${review.reviewer.patronymic}">4</td>
+            <td th:text="${review.text}">5</td>
+            <td th:text="${#dates.format(review.creationDate, 'dd-MM-yyyy')}">6</td>
+            <td th:value="${review.displayed}">7</td>
+            <td><a class="btn btn-info" href="#" role="button"
+                   th:href="@{/reviews/{id}/delete(id=${review.id})}">Delete</a></td>
+        </tr>
+        </tbody>
+    </table>
+    </form>
+    <!-- PAGINATION -->
+    <div>
+        <div>
+            <p>Pages:</p>
+        </div>
+        <ul th:object="${reviewsWithPagination.pagination}">
+            <th:block th:unless="*{currentPage == 1}">
+                <li><a th:href="@{/reviews(pagination.currentPage=*{currentPage - 1}, pagination.elementsPerPage=*{elementsPerPage})}">Back</a></li>
+            </th:block>
+
+            <li><a th:href="@{/reviews(pagination.currentPage=*{currentPage}, pagination.elementsPerPage=*{elementsPerPage})}"
+                   th:text="*{currentPage}">page</a></li>
+            <th:block th:unless="*{currentPage == amountPages}">
+                <li><a th:href="@{/reviews(pagination.currentPage=*{currentPage + 1}, pagination.elementsPerPage=*{elementsPerPage})}">Next</a></li>
+            </th:block>
+        </ul>
+    </div>
+    </div>
+</span>
+<a th:href="@{/welcome}" href="/"> Menu</a>
+</body>
+</html>

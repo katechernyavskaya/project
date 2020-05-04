@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Users</title>
+</head>
+<body>
+<span th:if="${#lists.isEmpty(usersWithPagination.users)}">
+    No users yet
+    </span>
+<span th:unless="${#lists.isEmpty(usersWithPagination.users)}">
+<form th:action="@{/users/delete}"
+      action="/users/delete"
+      th:object="${usersWithPagination.deleteUsers}"
+      method="post">
+    <table>
+        Users
+        <thead>
+        <tr>
+            <th hidden scope="col">#</th>
+            <th scope="col">Email</th>
+            <th scope="col">Surname</th>
+            <th scope="col">Name</th>
+            <th scope="col">Patronymic</th>
+            <th scope="col">Role</th>
+            <th scope="col">Options</th>
+            <th scope="col">Delete?</th>
+        </tr>
+        </thead>
+        <tbody th:each="user: ${usersWithPagination.users}">
+        <tr>
+            <td th:text="${user.id}">1</td>
+            <td th:text="${user.email}">2</td>
+            <td th:text="${user.surname}">3</td>
+            <td th:text="${user.name}">4</td>
+            <td th:text="${user.patronymic}">5</td>
+            <td th:text="${user.role}">6</td>
+            <td>
+                <div th:unless="${user.couldNotBeDeleted}">
+                    <a class="btn btn-info" href="#" role="button"
+                       th:href="@{/users/{id}/password(id=${user.id})}">Change password</a>
+                    <a class="btn btn-info" href="#" role="button" th:href="@{/users/{id}/role(id=${user.id})}">Change
+                        role</a>
+                </div>
+            </td>
+            <td>
+                <div th:unless="${user.couldNotBeDeleted}">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox"
+                               th:field="${usersWithPagination.deleteUsers.userIds}"
+                               th:value="${user.id}">
+                    </div>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <button type="submit" class="btn btn-outline-success">Delete selected users</button>
+</form>
+    <!-- PAGINATION -->
+    <div>
+        <div>
+            <p>Pages:</p>
+        </div>
+        <ul th:object="${usersWithPagination.pagination}">
+            <th:block th:unless="*{currentPage == 1}">
+                <li><a th:href="@{/users(pagination.currentPage=*{currentPage - 1}, pagination.elementsPerPage=*{elementsPerPage})}">Back</a></li>
+            </th:block>
+
+            <li><a th:href="@{/users(pagination.currentPage=*{currentPage}, pagination.elementsPerPage=*{elementsPerPage})}"
+                   th:text="*{currentPage}">page</a></li>
+            <th:block th:unless="*{currentPage == amountPages}">
+                <li><a th:href="@{/users(pagination.currentPage=*{currentPage + 1}, pagination.elementsPerPage=*{elementsPerPage})}">Next</a></li>
+            </th:block>
+        </ul>
+    </div>
+ </span>
+<a th:href="@{/users/add}" href="/"> Add user</a>
+
+<a th:href="@{/welcome}" href="/"> Menu</a>
+</body>
+</html>

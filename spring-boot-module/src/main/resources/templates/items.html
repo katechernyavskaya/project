@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Items</title>
+</head>
+<body>
+<span th:if="${#lists.isEmpty(itemsWithPagination.items)}">
+    No items yet
+    </span>
+<span th:unless="${#lists.isEmpty(itemsWithPagination.items)}">
+<table>
+    <thead>
+    <tr>
+        <td hidden>#</td>
+        <th scope="col">Name</th>
+        <th scope="col">Code</th>
+        <th scope="col">Price</th>
+        <th scope="col">Actions</th>
+    </tr>
+    </thead>
+    <tbody th:each="item: ${itemsWithPagination.items}">
+    <tr>
+        <td hidden th:text="${item.id}">1</td>
+        <td th:text="${item.name}">2</td>
+        <td th:text="${item.code}">3</td>
+        <td th:text="${item.price}">4</td>
+        <td>
+            <a class="btn btn-info" href="#" role="button"
+               th:href="@{/items/{id}(id=${item.id})}">More info</a>
+
+            <div sec:authorize="hasRole('SALE_USER')">
+                <a class="btn btn-info" href="#" role="button"
+                   th:href="@{/items/{id}/delete(id=${item.id})}">Delete item</a>
+                <a class="btn btn-info" href="#" role="button"
+                   th:href="@{/items/{id}/copy(id=${item.id})}">Copy item</a>
+            </div>
+
+            <div sec:authorize="hasRole('CUSTOMER_USER')">
+                <a class="btn btn-info" href="#" role="button"
+                   th:href="@{/orders/add/{id}/quantity/1(id=${item.id})}">Order item</a>
+            </div>
+        </td>
+    </tr>
+    </tbody>
+</table>
+    <!-- PAGINATION -->
+<div>
+    <div>
+        <p>Pages:</p>
+    </div>
+    <ul th:object="${itemsWithPagination.pagination}">
+        <th:block th:unless="*{currentPage == 1}">
+            <li>
+                <a th:href="@{/items(pagination.currentPage=*{currentPage - 1}, pagination.elementsPerPage=*{elementsPerPage})}">Back</a>
+            </li>
+        </th:block>
+
+        <li><a th:href="@{/items(pagination.currentPage=*{currentPage}, pagination.elementsPerPage=*{elementsPerPage})}"
+               th:text="*{currentPage}">page</a></li>
+        <th:block th:unless="*{currentPage == amountPages}">
+            <li>
+                <a th:href="@{/items(pagination.currentPage=*{currentPage + 1}, pagination.elementsPerPage=*{elementsPerPage})}">Next</a>
+            </li>
+        </th:block>
+    </ul>
+</div>
+<a th:href="@{/welcome}" href="/"> Menu</a>
+    </span>
+</body>
+</html>
