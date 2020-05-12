@@ -10,7 +10,7 @@ Specification: https://bit.ly/2YCgFQl
 * MySQL 8
   + Liquibase for migration
 
-Users with its createntials and different roles:
+Users with createntials and different roles:
 * ADMINISTRATOR (admin@user.com/admin)
 * CUSTOMER_USER (customer@user.com/customer)
 * SALE_USER (sale@user.com/sale)
