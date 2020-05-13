@@ -8,9 +8,9 @@ Specification: https://bit.ly/2YCgFQl
 * Spring 5
 * Hibernate 5
 * MySQL 8
-  + Liquibase for migration
+* Liquibase for migration
 
-Users with createntials and different roles:
+Users with credetentials and different roles:
 * ADMINISTRATOR (admin@user.com/admin)
 * CUSTOMER_USER (customer@user.com/customer)
 * SALE_USER (sale@user.com/sale)
@@ -20,8 +20,6 @@ Before starting please set necessary properties in application.properties file (
 * Connection to db: spring.datasource.*
 * Smtp server for email sending: spring.mail.*
 * Hibernate properties: spring.jpa.*
-
-For testing purposes you could set necessary properties in application-integration.properties
 
 
 Enjoy!
