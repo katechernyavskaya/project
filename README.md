@@ -1,7 +1,7 @@
 Shop application with different user types.
 Specification: https://bit.ly/2YCgFQl
 
-3-level three-module development architecture with the following technologies:
+3-level architecture with the following technologies:
 * Java 8
 * Log4j2
 * Spring Boot 2
